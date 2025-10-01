@@ -116,6 +116,10 @@ class PollReader():
             if self.data_dict['sample type'][i] == 'LV':
                 harris_list.append(self.data_dict['Harris result'][i])
                 trump_list.append(self.data_dict['Trump result'][i])
+
+        harris_avg = sum(harris_list) / len(harris_list) if harris_list else 0.0
+        trump_avg = sum(trump_list) / len(trump_list) if trump_list else 0.0
+        return harris_avg, trump_avg
         pass
 
 
