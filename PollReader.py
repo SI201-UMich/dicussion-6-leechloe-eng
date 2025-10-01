@@ -137,8 +137,8 @@ class PollReader():
         first30_trump = trump_values[:30]
         last30_trump = trump_values[-30:]
 
-        harris_change = (sum(last30_harris) / len(last30_harris)) - (sum(first30_harris) / len(first30_harris))
-        trump_change = (sum(last30_trump) / len(last30_trump)) - (sum(first30_trump) / len(first30_trump))
+        harris_change = (sum(first30_harris) / len(first30_harris)) - (sum(last30_harris) / len(last30_harris))
+        trump_change = (sum(first30_trump) / len(first30_trump)) - (sum(last30_trump) / len(last30_trump))
 
         return harris_change, trump_change
         """
