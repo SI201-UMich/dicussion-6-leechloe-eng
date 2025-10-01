@@ -55,10 +55,10 @@ class PollReader():
         """
 
         # iterate through each row of the data
-        for i in self.raw_data:
+        for i in self.raw_data[1: ]:
 
             # split up the row by column
-            seperated = i.split(' ')
+            seperated = i.strip().split(',')
 
             # map each part of the row to the correct column
             self.data_dict['month'].append(seperated[0])
