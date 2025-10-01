@@ -55,21 +55,39 @@ class PollReader():
         """
 
         # iterate through each row of the data
-        for i in self.raw_data[1: ]:
+        for line in self.raw_data[1: ]:
 
             # split up the row by column
-            seperated = i.strip().split(',')
+            values = line.strip().split(',')
 
             # map each part of the row to the correct column
-            self.data_dict['month'].append(seperated[0])
-            self.data_dict['date'].append(int(seperated[1]))
-            self.data_dict['sample'].append(int(seperated[2]))
-            self.data_dict['sample type'].append(seperated[2])
-            self.data_dict['Harris result'].append(float(seperated[3]))
-            self.data_dict['Trump result'].append(float(seperated[4]))
+            month = values[0].strip()
+            date = int(values[1].strip())
+            sample = int(values[2].strip())
+            sample_type = values[3].strip()
+            harris_result = float(values[4].strip())
+            trump_result = float(values[5].strip())
+
+            self.data_dict['month'].append(month)
+            self.data_dict['date'].append(date)
+            self.data_dict['sample'].append(sample)
+            self.data_dict['sample type'].append(sample_type)
+            self.data_dict['Harris result'].append(harris_result)
+            self.data_dict['Trump result'].append(trump_result)
 
 
     def highest_polling_candidate(self):
+
+        max_harris = max(self.data_dict['Harris result'])
+        max_trump = max(self.data_dict['Trump result'])
+
+        if max_harris > max_trump:
+            return f"Harris {max_harris*100:.1f}%"
+        elif max_trump > max_harris:
+            return f"Trump {max_trump*100:.1f}%"
+        else:
+            return f"EVEN {max_harris*100:.1f}%"
+
         """
         This method should iterate through the result columns and return
         the name of the candidate with the highest single polling percentage
