@@ -63,10 +63,15 @@ class PollReader():
             # map each part of the row to the correct column
             month = values[0].strip()
             date = int(values[1].strip())
-            sample = int(values[2].strip())
-            sample_type = values[3].strip()
-            harris_result = float(values[4].strip())
-            trump_result = float(values[5].strip())
+
+            sample_field = values[2].strip()
+            sample_parts = sample_field.split()
+            sample = int(sample_parts[0])
+            sample_type = sample_parts[-1]
+
+
+            harris_result = float(values[3].strip())
+            trump_result = float(values[4].strip())
 
             self.data_dict['month'].append(month)
             self.data_dict['date'].append(date)
@@ -124,6 +129,18 @@ class PollReader():
 
 
     def polling_history_change(self):
+        harris_values = self.data_dict['Harris result']
+        trump_values = self.data_dict['Trump result']
+
+        first30_harris = harris_values[:30]
+        last30_harris = harris_values[-30:]
+        first30_trump = trump_values[:30]
+        last30_trump = trump_values[-30:]
+
+        harris_change = (sum(last30_harris) / len(last30_harris)) - (sum(first30_harris) / len(first30_harris))
+        trump_change = (sum(last30_trump) / len(last30_trump)) - (sum(first30_trump) / len(first30_trump))
+
+        return harris_change, trump_change
         """
         Calculate the change in polling averages between the earliest and latest polls.
 
